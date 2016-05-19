@@ -32,7 +32,7 @@ Los comandos de stack con los que más vamos a trabajar son:
 - `stack exec exN` para ejecutar nuestra solución al ejercicio `N`.
 - `stack ghci --main-is exN` para lanzar una shell interactiva, una vez dentro de esta shell escribe `:l Main` para cargar el módulo `Main` del ejercicio `N` en el que estamos trabajando.
 
-### Zeal/Dash (opcional)
+### Zeal/Dash/Hoogle (opcional)
 
 [Zeal](https://zealdocs.org/)/[Dash](https://kapeli.com/dash) son dos programas (Zeal para Gnu/Linux y Dash para OSX) que te permiten navegar fácilmente y totalmente *offline* documentaciones de varias herramientas y lenguajes. En nuestro caso nos instalaremos el docset de Haskell (ver opciones → instalar docset).
 
@@ -42,6 +42,68 @@ Una vez descargado el docset puedes acceder o buscar en la documentación de Has
 
 ![Zeal](img/zeal-haskell-main.png)
 
+[Hoogle](https://wiki.haskell.org/Hoogle#Searches) es un programa de línea de comandos que una de las cosas interesantes que tiene es que nos permite buscar por *type signatures*. Para instalarlo podéis usar el mismo Stack: `stack install hoogle` y una vez instalado ejecutad `hoogle data` para que se cree el índice local.
+
+Luego de esto podemos fácilmente buscar desde nuestro terminal por nombre de función:
+``` sh
+$ hoogle getArgs
+System.Environment getArgs :: IO [String]
+System.Posix.Env.ByteString getArgs :: IO [ByteString]
+Graphics.UI.GLUT.Initialization getArgsAndInitialize :: MonadIO m => m (String, [String])
+```
+
+Podemos pedir que muestre la documentación [Haddock](https://www.haskell.org/haddock/) de una función:
+``` sh
+$ hoogle --info getArgs
+System.Environment getArgs :: IO [String]
+
+Computation getArgs returns a list of the program's command line arguments (not including the program name). 
+
+From package base
+getArgs :: IO [String]
+```
+
+Podemos también buscar por *type signature*:
+``` sh
+$ hoogle 'x a -> x b -> x b' | head
+Control.Applicative (*>) :: Applicative f => f a -> f b -> f b
+Prelude (>>) :: Monad m => m a -> m b -> m b
+Control.Monad (>>) :: Monad m => m a -> m b -> m b
+Control.Monad.Instances (>>) :: Monad m => m a -> m b -> m b
+Control.Applicative (<*) :: Applicative f => f a -> f b -> f a
+Control.Exception.Base finally :: IO a -> IO b -> IO a
+Control.Exception finally :: IO a -> IO b -> IO a
+Control.OldException finally :: IO a -> IO b -> IO a
+Control.Exception.Base onException :: IO a -> IO b -> IO a
+Control.Exception onException :: IO a -> IO b -> IO a
+```
+
+También podéis acceder a hoogle desde la repl ghci, para ello salvad lo siguiente en `$HOME/.ghci`:
+
+``` haskell
+let ghciEscapeShellArg arg = "'" ++ concatMap (\c -> if c == '\'' then "'\"'\"'" else [c]) arg ++ "'"
+:def! search return . (":! hoogle " ++) . ghciEscapeShellArg
+:def! doc return . (":! hoogle --info " ++) . ghciEscapeShellArg
+```
+
+El fichero anterior define dos nuevos comandos en nuestro ghci: `:search` y `:doc`, el primero simplemente busca y el segundo además de buscar muestra la documentación de Haddock, por ejemplo:
+
+``` sh
+$ ghci
+GHCi, version 7.10.3: http://www.haskell.org/ghc/  :? for help
+Prelude> :doc getArgs
+System.Environment getArgs :: IO [String]
+
+Computation getArgs returns a list of the program's command line arguments (not including the program name). 
+
+From package base
+getArgs :: IO [String]
+Prelude> :search getArgs
+System.Environment getArgs :: IO [String]
+System.Posix.Env.ByteString getArgs :: IO [ByteString]
+Graphics.UI.GLUT.Initialization getArgsAndInitialize :: MonadIO m => m (String, [String])
+Prelude> 
+```
 
 ## Ejercicios ##
 
