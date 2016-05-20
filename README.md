@@ -114,3 +114,108 @@ Si tienes poca experiencia con Haskell te recomendamos echarle un ojo a estos ar
 - [La notación do](http://aprendehaskell.es/content/Monadas.html)
 - [Functors, Applicatives and Monads in pictures](http://adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html)
 
+### Ejercicio 1 ###
+
+Crea un programa que reciba como único argumento la ruta a un fichero que contenga un listado de números enteros (un número entero por línea), y que muestre el resultado de la suma de dichos números enteros.
+
+Utiliza la función `read :: Read a => String -> a` para convertir cadenas de texto en enteros de momento. No os preocupéis por validar que el archivo pasado como argumento existe.
+
+#### Ejemplo ####
+
+Dado el fichero `all-numbers.txt` con este contenido:
+
+```
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+```
+
+Obtendremos esta salida al ejecutar la solución:
+
+``` sh
+$ stack exec ex1 all-numbers.txt
+55
+```
+
+### Ejercicio 2 ###
+
+Nuestro programa del ejercicio 1 tiene el siguiente problema: si en el archivo tenemos una línea que no es un número entero, nuestro programa lanzará una excepción y se dentendrá.
+
+``` sh
+$ stack exec ex1 some-numbers.txt
+ex1: Prelude.read: no parse
+```
+
+Modifica el programa para que ignore las líneas que no son números enteros.
+
+Tip: Busca la documentación de la función `readMaybe`.
+
+#### Ejemplo ####
+
+``` sh
+$ stack exec ex2 some-numbers.txt
+42
+
+$ stack exec ex2 none-numbers.txt
+0
+```
+
+### Ejercicio 3 ###
+
+Ahora en lugar de ignorar las líneas que no son válidas vamos a reportarlas en la salida de nuestro programa.
+
+#### Ejemplo ####
+
+``` sh
+$ stack exec ex3 some-numbers.txt
+Wrong number 'abc' at line: 5
+Wrong number 'def' at line: 8
+```
+
+### Ejercicio 4 ###
+
+Intenta simplificar la función `main` del ejercicio anterior (si aún no lo has hecho) para que utilice la función `either` de esta forma:
+
+``` haskell
+either printError printSum results
+```
+
+Donde el tipo de results es `results :: Either String [Integer]`, hacerlo así va a ocasionar que ahora nuestro programa en lugar de mostrar todos los errores a la vez solo los muestre de uno en uno, es decir, en cuanto se encuentra un error el programa se detiene, en el siguiente ejercicio arreglaremos esto.
+
+Tip: Investiga cómo puedes convertir un tipo `[f a]` en uno `f [a]`.
+
+#### Ejemplo ####
+
+``` sh
+$ stack exec ex4 some-numbers.txt
+Wrong number 'abc' at line: 5
+```
+
+Si arreglamos la línea 5 y volvemos a ejecutar el programa:
+
+``` sh
+$ stack exec ex4 some-numbers.txt
+Wrong number 'def' at line: 8
+```
+
+### Ejercicio 5 ###
+
+Vamos a intentar solucionar el problema del ejercicio anterior que hace que nuestro programa se detenga tan pronto se encuentra una línea que no se puede parsear en un número.
+
+
+Tip: Intenta definir un tipo `Either errors result` en el que `errors` es un tipo `Monoid`.
+
+#### Ejemplo ####
+
+``` sh
+$ stack exec ex5 some-numbers.txt
+Wrong number 'abc' at line: 5
+Wrong number 'def' at line: 8
+```
