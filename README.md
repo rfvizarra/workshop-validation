@@ -109,4 +109,8 @@ Prelude>
 
 Ahora comezaremos a hacer los ejercicios que poco a poco nos van a ir introduciendo en el desarrollo con Haskell. Cada ejercicio intenta introducir una mejora en la solución al ejercicio anterior por lo que no te apresures a introducir todas las mejoras en tu primera solución. Lo que intentamos con esto es que vuestro esfuerzo dedicado a realizar cada ejercicio os ayude a construir una intuición para resolver problemas en Haskell, podéis leer más sobre este tema en el artículo de Brent Yorgey [Abstraction, intuition, and the “monad tutorial fallacy”](https://byorgey.wordpress.com/2009/01/12/abstraction-intuition-and-the-monad-tutorial-fallacy/)
 
-> Aquí añadiremos los ejercicios el día del workshop
+Si tienes poca experiencia con Haskell te recomendamos echarle un ojo a estos artículos:
+- [Entrada/Salida en Haskell](http://aprendehaskell.es/content/EntradaSalida.html)
+- [La notación do](http://aprendehaskell.es/content/Monadas.html)
+- [Functors, Applicatives and Monads in pictures](http://adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html)
+
