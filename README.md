@@ -1,10 +1,23 @@
-# Taller de validación en Haskell
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-generate-toc again -->
 
-[Enlace al evento](http://www.meetup.com/Haskell-MAD/events/230656250/)
+## Taller de Haskell de validación ##
 
-## Requisitos
+- [Requisitos](#requisitos)
+    - [Stack](#stack)
+    - [Zeal/Dash/Hoogle (opcional)](#zealdashhoogle-opcional)
+- [Ejercicios](#ejercicios)
+    - [Ejercicio 1](#ejercicio-1)
+    - [Ejercicio 2](#ejercicio-2)
+    - [Ejercicio 3](#ejercicio-3)
+    - [Ejercicio 4](#ejercicio-4)
+    - [Ejercicio 5](#ejercicio-5)
 
-### Stack
+<!-- markdown-toc end -->
+
+
+## Requisitos ##
+
+### Stack ###
 
 El primer paso para comenzar a desarrollar los programas del taller de forma cómoda es instalar Stack si aún no lo tenemos. 
 
@@ -32,7 +45,7 @@ Los comandos de stack con los que más vamos a trabajar son:
 - `stack exec exN` para ejecutar nuestra solución al ejercicio `N`.
 - `stack ghci --main-is exN` para lanzar una shell interactiva, una vez dentro de esta shell escribe `:l Main` para cargar el módulo `Main` del ejercicio `N` en el que estamos trabajando.
 
-### Zeal/Dash/Hoogle (opcional)
+### Zeal/Dash/Hoogle (opcional) ###
 
 [Zeal](https://zealdocs.org/)/[Dash](https://kapeli.com/dash) son dos programas (Zeal para Gnu/Linux y Dash para OSX) que te permiten navegar fácilmente y totalmente *offline* documentaciones de varias herramientas y lenguajes. En nuestro caso nos instalaremos el docset de Haskell (ver opciones → instalar docset).
 
