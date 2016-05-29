@@ -39,5 +39,5 @@ main = do
   contents <- readFile . head $ args
   let results = toIndexed . parseDataList . lines $ contents
   mapM_ putStrLn $ dataToErrorList results
-  putStrLn $ show $ foldr (+) 0 $ dataToNumList results
+  putStrLn . show . foldr (+) 0 . dataToNumList $ results
 
